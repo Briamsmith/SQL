@@ -27,7 +27,7 @@ VALUES
     (14, 'Cutlery Set', 'Kitchen Supplies', 34.50, 40, 4.4),
     (15, 'Cozy Throw Blanket', 'Furnishings', 24.99, 100, 4.2);
 
-#Use a SELECT statement to order the items by highest to lowest price.
+#Use a SELECT statement to order the items from highest to lowest price.
 Select *
 From superstore
 Order by price desc
