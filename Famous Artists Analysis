@@ -1,0 +1,47 @@
+# I created the schema below to show skills of selecting data from multiple tables:
+
+CREATE TABLE personal_info (id INTEGER PRIMARY KEY,
+    stage_name TEXT,
+    marriage_status TEXT,
+    birthdate TEXT);
+    
+INSERT into personal_info (id, stage_name, marriage_status, birthdate)
+    VALUES ("1", "Beyoncé", "married", "1981-09-04");
+INSERT into personal_info (id, stage_name, marriage_status, birthdate)
+    VALUES ("2", "Tim McGraw", "married", "1967-05-01");
+INSERT into personal_info (id, stage_name, marriage_status, birthdate)
+    VALUES ("3", "Carrie Underwood", "married", "1983-03-10");
+INSERT into personal_info (id, stage_name, marriage_status, birthdate)
+    VALUES ("4", "SZA", "Single", "1989-11-08");
+INSERT into personal_info (id, stage_name, marriage_status, birthdate)
+    VALUES ("5", "Drake", "single", "1986-10-24");
+
+CREATE TABLE celebrity (id INTEGER PRIMARY KEY,
+    genre TEXT,
+    networth INTEGER,
+    album_number INTEGER);
+
+INSERT into celebrity (id, genre, networth, album_number)
+    VALUES ("1", "R&B", "355", "10");
+INSERT into celebrity (id, genre, networth, album_number)
+    VALUES ("2", "country", "200", "16");
+INSERT into celebrity (id, genre, networth, album_number)
+    VALUES ("3", "country", "140", "10");
+INSERT into celebrity (id, genre, networth, album_number)
+    VALUES ("4", "R&B", "6", "2");
+INSERT into celebrity (id, genre, networth, album_number)
+    VALUES ("5", "rap", "150", "8");
+
+# Who is the oldest in the database and how many albums have they sold?
+SELECT p.stage_name AS oldest_person, c.album_number AS albums_sold
+FROM personal_info AS p
+JOIN celebrity AS c ON p.id = c.id
+ORDER BY strftime('%Y', p.birthdate) ASC
+LIMIT 1;
+
+# Who has an average networth of 200 and over and what is their marriage status?
+SELECT p.stage_name, p.marriage_status
+FROM personal_info AS p
+JOIN celebrity AS c ON p.id = c.id
+GROUP BY p.stage_name, p.marriage_status
+HAVING AVG(c.networth) >= 200;
